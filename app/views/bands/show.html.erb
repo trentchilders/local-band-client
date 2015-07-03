@@ -1,3 +1,4 @@
 <h1><%= @band.name %></h1>
 <h1><%= @band.email %></h1>
 <h1><%= @band.number_members %></h1>
+<p><%= link_to "delete?", "/bands/#{@band.id}", method: :delete %>

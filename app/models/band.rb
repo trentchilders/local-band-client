@@ -1,11 +1,12 @@
 class Band
 
-attr_accessor :name, :email, :number_members
+attr_accessor :name, :email, :number_members, :id
 
   def initialize(band)
     @name = band["name"]
     @email = band['email']
     @number_members = band['number_members']
+    @id = band['id']
 
   end
 
@@ -23,6 +24,13 @@ attr_accessor :name, :email, :number_members
 
     bands
 
+  end
+
+  def destroy
+  Unirest.delete("http://localhost:3000/bands/#{id}.json", 
+    headers:{ "Accept" => "application/json" }).body
+
+    
   end
 
 end

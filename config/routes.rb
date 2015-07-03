@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   get 'bands/new' => 'bands#new'
   get '/bands/:id' => 'bands#show'
   post '/bands' => 'bands#create'
+  delete 'bands/:id' => 'bands#destroy'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
