@@ -1,11 +1,16 @@
 class BandsController < ApplicationController
 
   def index
-    @bands = Unirest.get("http://localhost:3000/bands.json").body
+    @bands = []
+    band_hashes = Unirest.get("http://localhost:3000/bands.json").body
+    band_hashes.each do |hash|
+      @bands << Band.new(hash)
+    end
+    
   end
 
   def show
-    @band = Unirest.get("http://localhost:3000/bands/#{params[:id]}.json").body
+    @band = Band.new(Unirest.get("http://localhost:3000/bands/#{params[:id]}.json").body)
   end
 
   def create
