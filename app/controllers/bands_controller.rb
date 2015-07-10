@@ -17,7 +17,7 @@ class BandsController < ApplicationController
   end
 
   def create
-    @band = Unirest.post("http://localhost:3000/bands.json", 
+    @band = Unirest.post("#{ENV["API_BASE_URL"]}/v1/bands.json", 
     headers:{ "Accept" => "application/json" }, 
     parameters:{ name: params[:name], email: params[:email], number_members: params[:number_members] }).body
 

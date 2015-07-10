@@ -11,12 +11,13 @@ attr_accessor :name, :email, :number_members, :id
   end
 
   def self.find(id)
-    Band.new(Unirest.get("http://localhost:3000/bands/#{id}.json").body)
+    Band.new(Unirest.get("#{ENV["API_BASE_URL"]}/bands/#{id}.json", headers:{ "Accept" => "application/json", "X-User-Email" => "test@test.com", "Authorization" => "Token token=password"}).body)
   end
 
   def self.all
     bands = []
-    band_hashes = Unirest.get("http://localhost:3000/bands.json").body
+
+    band_hashes = Unirest.get("#{ENV["API_BASE_URL"]}/bands.json", headers:{ "Accept" => "application/json", "X-User-Email" => "#{ENV['API_EMAIL']}", "Authorization" => "Token token=#{ENV['API_KEY']}"}).body
 
     band_hashes.each do |hash|
       bands << Band.new(hash)
@@ -27,7 +28,7 @@ attr_accessor :name, :email, :number_members, :id
   end
 
   def destroy
-  Unirest.delete("http://localhost:3000/bands/#{id}.json", 
+  Unirest.delete("#{ENV["API_BASE_URL"]}/bands/#{id}.json", 
     headers:{ "Accept" => "application/json" }).body
 
     
